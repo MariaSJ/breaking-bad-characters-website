@@ -1,0 +1,41 @@
+.form{
+    width: 500px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+
+    &__search{
+        width: 500px;
+        height: 30px;
+    }
+    &__btn{
+        width: 100px;
+        height: 30px;
+    }
+}
+
+
+.list-characters{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.character{
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.32);
+    margin: 5px;
+
+    &__img{
+        width: 150px;
+        height: 200px;
+        object-fit: cover;
+        margin: 10px;
+    }
+}
