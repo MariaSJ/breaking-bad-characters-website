@@ -1,24 +1,29 @@
 .form{
     width: 500px;
-    height: 50px;
+    height: 30px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
 
     &__search{
-        width: 500px;
+        width: 400px;
         height: 30px;
+        border-radius: 2px;
     }
     &__btn{
-        width: 100px;
+        width: 70px;
         height: 30px;
+        border-radius: 2px;
+        cursor: pointer;
     }
 }
-
 
 .list-characters{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    cursor: pointer;
 }
 .character{
     width: 200px;

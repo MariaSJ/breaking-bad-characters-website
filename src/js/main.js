@@ -3,27 +3,43 @@
 //------------ VARIABLES -----------//
 
 const ulCharacters = document.querySelector('.js-list-characters');
+
 let listCharacters = []; // variable vacía para guardar los personajes que me devuelve el servidor
+let favCharacters = [];
 
 
 //------------- FUNCTIONS ----------//
 
+// función manejadora para meter los personajes favoritos en el array fav. Llamamos a esta función en el evento listenerEachCard
+
+function handleClick(event) {
+    // 1. rescatamos la carta seleccionada mediante su id
+    const charSelected = event.currentTarget.id; //constante donde guardar la card seleccionada
+    console.log(charSelected);
+    const charFound = listCharacters.find((pCharObj) => pCharObj.id === charSelected); // constante que me devuelve la clicada 
+    
+    console.log(charFound);
+}
+
+
+
 // function listener (para poder escuchar cada una de las tarjetas de los personajes)
 
-function listenerEachCard() {
-    const listCard = document.querySelectorAll('.js-card-character');
-    for (const card of listCard) {
-        card.addEventListener('click', () => console.log('escuchada'));
+function listenerEachChar() {
+    // seleccionamos TODAS las cartas y como es un array declaramos el evento mediante un for
+    const listChar = document.querySelectorAll('.js-card-character');
+    for (const char of listChar) {
+        char.addEventListener('click', handleClick); //handleclick
     }
 }
 
 // function render (para pintar cada personaje)
 
-function renderCharacters() {
+function renderAllCharacters() {
     let liHtml = "";
-    // recorro el array para extraer los datos y meterlos en html 
+    // recorremos el array para extraer los datos y meterlos en el html 
     for (const character of listCharacters) {
-        liHtml += `<li class="character js-card-character">`;
+        liHtml += `<li class="character js-card-character" id="${character.char_id}">`;
         liHtml += `<img class="character__img" src="${character.img}" alt="">`;
         liHtml += `<h4 class="character__name">${character.name}</h4>`;
         liHtml += `<p class="character__status">${character.status}</p>`;
@@ -31,8 +47,8 @@ function renderCharacters() {
     }
     // pintamos los personaje y ESCUCHAMOS cuando clicamos en cada una (1º lo pinto para que exista y luego lo escucho)
     ulCharacters.innerHTML = liHtml;
-    listenerEachCard();
-};
+    listenerEachChar();
+}
 
 // Fetch (lo metemos en una función)
 
@@ -42,7 +58,7 @@ function getData () {
         .then((data) => {
             listCharacters = data;
             console.log(listCharacters);
-            renderCharacters();
+            renderAllCharacters();
     });
 }
 
