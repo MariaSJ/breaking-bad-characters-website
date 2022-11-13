@@ -1,34 +1,44 @@
-.form{
-    width: 500px;
-    height: 30px;
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.characters{
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin: 20px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
 
-    &__search{
-        width: 400px;
-        height: 30px;
-        border-radius: 2px;
-    }
-    &__btn{
-        width: 70px;
-        height: 30px;
-        border-radius: 2px;
+.favourites{
+    width: 20%;
+    border: solid 2px black;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.list-characters{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    :hover{
         cursor: pointer;
     }
 }
 
-.list-characters{
-    width: 80vw;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    cursor: pointer;
-}
 .character{
     width: 200px;
-    height: 300px;
+    height: 320px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,4 +58,8 @@
 
 .selected{
     background-color: #3FA64E;
+}
+
+.hidden{
+    display: none;
 }

@@ -7,24 +7,18 @@
     <title>Breaking Bad Characters</title>
     
   <body>
+    <include src="./partials/header.html" title="header"></include>
+
     <main class="main">
 
       <include src="./partials/form-hero.html" title="form-hero"></include>
 
-      <section class="characters">
-        <aside class="favourites">
-          <h2 class="favourites__title">Favoritos</h2>
-          <ul class="js-favourites-list">
-
-          </ul>
-        </aside>
-
-        <ul class="list-characters js-list-characters">
-        </ul>
-      </section>
-
+      <include src="./partials/characters.html" title="characters"></include>
+      
     </main>
   
+    <include src="./partials/footer.html" title="footer"></include>
+    
   <script src="./assets/js/main.js"></script>
   </body>
 </html>
