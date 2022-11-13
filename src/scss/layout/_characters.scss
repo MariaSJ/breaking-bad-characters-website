@@ -20,6 +20,7 @@
 }
 
 .list-characters{
+    width: 80vw;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -43,4 +44,8 @@
         object-fit: cover;
         margin: 10px;
     }
+}
+
+.selected{
+    background-color: #3FA64E;
 }

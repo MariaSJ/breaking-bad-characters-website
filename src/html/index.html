@@ -7,15 +7,22 @@
     <title>Breaking Bad Characters</title>
     
   <body>
-    <main>
-      <form class="form js-form" action="" method="get">
-        <input class="form__search js-input-search" type="text" name="search" id="" placeholder="Example: Walter White">
-        <input class="form__btn js-btn-search" type="submit" value="Search">
-      </form> 
+    <main class="main">
 
-      <ul class="list-characters js-list-characters">
-       
-      </ul>
+      <include src="./partials/form-hero.html" title="form-hero"></include>
+
+      <section class="characters">
+        <aside class="favourites">
+          <h2 class="favourites__title">Favoritos</h2>
+          <ul class="js-favourites-list">
+
+          </ul>
+        </aside>
+
+        <ul class="list-characters js-list-characters">
+        </ul>
+      </section>
+
     </main>
   
   <script src="./assets/js/main.js"></script>

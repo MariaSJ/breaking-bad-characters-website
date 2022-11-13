@@ -1,39 +1,33 @@
 'use strict';
 
-//------------ VARIABLES -----------//
+//-------------------------------- VARIABLES -------------------------------------------//
 
 const ulCharacters = document.querySelector('.js-list-characters');
+const ulfavourites = document.querySelector('.js-favourites-list');
 
 let listCharacters = []; // variable vacía para guardar los personajes que me devuelve el servidor
-let favCharacters = [];
+let favCharacters = []; // variable para guardar los personajes favoritos
 
 
-//------------- FUNCTIONS ----------//
+//--------------------------------- FUNCTIONS -------------------------------------------//
 
-// función manejadora para meter los personajes favoritos en el array fav. Llamamos a esta función en el evento listenerEachCard
+// Fetch (lo metemos en una función)
 
-function handleClick(event) {
-    // 1. rescatamos la carta seleccionada mediante su id
-    const charSelected = event.currentTarget.id; //constante donde guardar la card seleccionada
-    console.log(charSelected);
-    const charFound = listCharacters.find((pCharObj) => pCharObj.id === charSelected); // constante que me devuelve la clicada 
-    
-    console.log(charFound);
+function getData () {
+    fetch("https://breakingbadapi.com/api/characters")
+        .then((response) => response.json())
+        .then((data) => {
+            listCharacters = data;
+            renderAllCharacters();
+    });
 }
 
+getData();
 
-
-// function listener (para poder escuchar cada una de las tarjetas de los personajes)
-
-function listenerEachChar() {
-    // seleccionamos TODAS las cartas y como es un array declaramos el evento mediante un for
-    const listChar = document.querySelectorAll('.js-card-character');
-    for (const char of listChar) {
-        char.addEventListener('click', handleClick); //handleclick
-    }
-}
 
 // function render (para pintar cada personaje)
+
+// TODOS LOS PERSONAJES
 
 function renderAllCharacters() {
     let liHtml = "";
@@ -50,28 +44,65 @@ function renderAllCharacters() {
     listenerEachChar();
 }
 
-// Fetch (lo metemos en una función)
+// SOLO FAVORITOS
 
-function getData () {
-    fetch("https://breakingbadapi.com/api/characters")
-        .then((response) => response.json())
-        .then((data) => {
-            listCharacters = data;
-            console.log(listCharacters);
-            renderAllCharacters();
-    });
+function renderFavCharacters() {
+    let liHtml = "";
+    for (const favChar of favCharacters){
+        liHtml += `<li class="character js-card-character" id="${favChar.char_id}">`;
+        liHtml += `<img class="character__img" src="${favChar.img}" alt="">`;
+        liHtml += `<h4 class="character__name">${favChar.name}</h4>`;
+        liHtml += `<p class="character__status">${favChar.status}</p>`;
+        liHtml += `</li>`;
+    }
+    ulfavourites.innerHTML = liHtml;
 }
 
-getData();
+
+
+// FUNCIÓN MANEJADORA (para meter los personajes favoritos en el array fav. Llamamos a esta función en el evento listenerEachCard).
+
+function handleClick(event) {
+
+    event.currentTarget.classList.toggle('selected');
+    // 1. rescatamos la carta seleccionada mediante su id
+    const charSelected = event.currentTarget.id; //constante donde guardar la card seleccionada
+    const charFound = listCharacters.find((pCharObj) => pCharObj.char_id === parseInt(charSelected)); // constante que me devuelve el personaje clicado. ParseInt para pasar el string que devuelve currentTarget a nº
+    
+    // 2. la metemos en favoritos. 1º evitamos que se dupliquen verificando si ya está en fav, buscamos con findIndex
+    const charFavFound = favCharacters.findIndex((favCharObj) => favCharObj.char_id === parseInt(charSelected)); // const si está o no, si es -1 no está y lo añade. Si ya está, no hace nada. 
+    if (charFavFound === -1) {
+        favCharacters.push(charFound);
+     } else {
+        favCharacters.splice(charFavFound, 1);
+    } //ESTO PUEDE ELIMINAR EL PERSONAJE
+    
+    renderFavCharacters();
+}
+
+console.log(ulfavourites);
+
+
+
+
+
+
+
 
 
 
 // Función para guaradar en el local.storage
 
 
-//---------------- EVENTS ------------------//
+//---------------------------------------- EVENTS ---------------------------------//
 
-/* Eventos en cada personaje para: 
-    1. guardarlos en en array nuevo de favoritos 
-    2. para quitar / dar clases css (cuando queda seleccionada como favorita, etc)
-*/
+
+// function listener (para poder escuchar cada una de las tarjetas de los personajes)
+
+function listenerEachChar() {
+    // seleccionamos TODAS las cartas y como es un array declaramos el evento mediante un for
+    const listChar = document.querySelectorAll('.js-card-character');
+    for (const char of listChar) {
+        char.addEventListener('click', handleClick);
+    }
+}
