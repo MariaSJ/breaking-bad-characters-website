@@ -38,7 +38,7 @@ if (saveFavouritesChar !== null){
 };
 
 
-//------------- FUNCIONES RENDER (para pintar cada personaje)
+//--------------------------- FUNCIONES RENDER (para pintar cada personaje) 
 
 // TODOS LOS PERSONAJES
 
@@ -63,7 +63,7 @@ function renderAllCharacters(pListCharacters) {
         liHtml += `<p class="character__status">${character.status}</p>`;
         liHtml += `</li>`;
     }
-    // pintamos los personaje y ESCUCHAMOS cuando clicamos en cada una (1º lo pinto para que exista y luego lo escucho)
+    // pintamos los personaje y ESCUCHAMOS cuando clicamos en cada una (1º lo pinto para que exista y luego lo escucho).
     ulCharacters.innerHTML = liHtml;
     listenerEachChar();
 };

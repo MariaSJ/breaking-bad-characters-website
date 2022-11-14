@@ -1,4 +1,5 @@
 .main{
+    background-color: $backgroundBlack;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,16 +13,60 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: flex-start;
+    font-family: $mainFont;
+    color: white;
+    text-align: center;
 }
 
 .favourites{
+    background-color: $backgroundFavourites;
     width: 20%;
-    border: solid 2px black;
+    border-radius: 10px;
     margin-left: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+
+    &__heart{
+        font-size: 45px;
+        color: $greenSelected;
+        transform: translateY(-50%);
+    }
+
+    &__msg{
+        color: black;
+    }   
+}
+
+.reset{
+    border: solid 1px white;
+    border-radius: 15px;
+    padding: 1px 10px;
+    position: relative;
+
+    &__button{
+        width: 100px;
+        margin: 10px;
+        position: relative;
+        font-family: $mainFont;
+        background-color: transparent;
+        border-color: $greenSelected;
+        text-transform: uppercase;
+        font-size: 12px;
+        line-height: 20px;
+        color: black;
+        border-radius: 10px;
+        cursor: pointer;
+        &:hover {
+            background-color: $greenSelected;
+            color: black;
+        }
+        .fa-trash-can {
+        color: black;
+        }
+    }
+    
 }
 
 .list-characters{
@@ -45,8 +90,10 @@
     align-content: center;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.32);
+    box-shadow: 0 0 4px 0 white;
+    background-color: rgb(49, 49, 49);
     margin: 5px;
+    border-radius: 5px;
 
     &__img{
         width: 150px;
@@ -57,7 +104,8 @@
 }
 
 .selected{
-    background-color: #3FA64E;
+    background-color: $greenSelected;
+    color: black;
 }
 
 .hidden{
