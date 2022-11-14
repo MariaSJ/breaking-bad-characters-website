@@ -1,20 +1,33 @@
 .form{
-    width: 500px;
-    height: 30px;
+    width: 600px;
+    height: 50px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin: 20px;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 30px;
+    
 
     &__search{
-        width: 400px;
-        height: 30px;
-        border-radius: 2px;
+        width: 450px;
+        height: 40px;
+        border-radius: 10px;
+        border: transparent;
+        font-family: $mainFont;
+        font-size: 16px;
+        text-align: center;
     }
     &__btn{
-        width: 70px;
-        height: 30px;
-        border-radius: 2px;
+        width: 100px;
+        height: 45px;
+        background-color: $secondgreen;
+        font-family: $mainFont;
+        border-radius: 20px;
+        font-size: 19px;
         cursor: pointer;
+        &:hover{
+            background-color: $backgrounColorCharacters;
+            color: $secondgreen;
+        }
     }
 }
