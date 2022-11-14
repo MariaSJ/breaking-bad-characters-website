@@ -6,7 +6,6 @@ const ulCharacters = document.querySelector('.js-list-characters');
 const ulfavourites = document.querySelector('.js-favourites-list');
 const btnSearch = document.querySelector('.js-btn-search');
 const inputTextSearch = document.querySelector('.js-input-search');
-const btnRemoveFav = document.querySelector('.js-btn-remove');
 const btnResetFav = document.querySelector('.js-favs-reset');
 const titleSectionFav = document.querySelector('.js-fav-title');
 
@@ -17,7 +16,7 @@ let favCharacters = []; // variable para guardar los personajes favoritos
 
 //--------------------------------- FUNCTIONS -------------------------------------------//
 
-// Fetch (lo metemos en una función)
+// Fetch 
 
 function getData () {
     fetch("https://breakingbadapi.com/api/characters")
@@ -39,24 +38,25 @@ if (saveFavouritesChar !== null){
 };
 
 
-// function render (para pintar cada personaje)
+//------------- FUNCIONES RENDER (para pintar cada personaje)
 
 // TODOS LOS PERSONAJES
 
 function renderAllCharacters(pListCharacters) {
     
     // buscamos su nuestro personaje de la lista está marcado como favorito a través del indice. Si está, le añadimos la clase selected. 
-    const favCharIndex = favCharacters.findIndex((pEachCharObj) => pEachCharObj.char_id === pListCharacters.char_id);
-    let classFav = "";
-    if (favCharIndex === -1) {
-        classFav = "";
-    } else {
-        classFav = 'selected';
-    }
     
     let liHtml = "";
     // recorremos el array para extraer los datos y meterlos en el html 
+    
+    let classFav = "";
     for (const character of pListCharacters) {
+        const favCharIndex = favCharacters.findIndex((pEachCharObj) => pEachCharObj.char_id === character.char_id);
+        if (favCharIndex === -1) {
+            classFav = "";
+        } else {
+            classFav = 'selected';
+        } 
         liHtml += `<li class="character js-card-character ${classFav}" id="${character.char_id}">`;
         liHtml += `<img class="character__img" src="${character.img}" alt="">`;
         liHtml += `<h4 class="character__name">${character.name}</h4>`;
@@ -68,26 +68,42 @@ function renderAllCharacters(pListCharacters) {
     listenerEachChar();
 };
 
-// SOLO FAVORITOS
+// SOLO LOS FAVORITOS
 
 function renderFavCharacters() {
+    // 1. Pinto mi lista de favoritos
     let liHtml = "";
     for (const favChar of favCharacters){
-        liHtml += `<li class="character js-card-characte" id="${favChar.char_id}">`;
+        liHtml += `<li class="character" id="${favChar.char_id}">`;
         liHtml += `<img class="character__img" src="${favChar.img}" alt="">`;
         liHtml += `<h4 class="character__name">${favChar.name}</h4>`;
         liHtml += `<p class="character__status">${favChar.status}</p>`;
-        liHtml += `<button class="btn-remove js-btn-remove" type="reset">X</button>`;
+        liHtml += `<button class="btn-delete js-btn-delete">X</button>`;
         liHtml += `</li>`;
     }
     ulfavourites.innerHTML = liHtml;
+
+    // 2. Escucho cada botón del personaje favorito (cada vez que refresque la pagina)
+    const btnDeleteFavList = document.querySelectorAll('.js-btn-delete');
+    for (const pbtnDelete of btnDeleteFavList) {
+        // evento para borrar un personaje de mi lista de favoritos y del localStorage
+        pbtnDelete.addEventListener('click', (event) => {
+            event.preventDefault();
+            const charFavSelected = event.currentTarget.id;
+            const charFavFound = favCharacters.findIndex((pFavCharObj) => pFavCharObj.char_id === parseInt(charFavSelected));
+            favCharacters.splice(charFavFound, 1);
+            localStorage.setItem('favChar', JSON.stringify(favCharacters));
+            renderFavCharacters(favCharacters);
+            renderAllCharacters(listCharacters);
+            titleSectionFav.classList.remove('hidden');
+        }); 
+    } 
 };
 
 
-// FUNCIÓN MANEJADORA (para meter los personajes favoritos en el array fav. Llamamos a esta función en el evento listenerEachCard).
+// ------- FUNCIÓN MANEJADORA (Llamamos a esta función en el evento listenerEachCard).
 
 function handleClick(event) {
-
     // 1. rescatamos la carta seleccionada mediante su id
     const charSelected = event.currentTarget.id; //constante donde guardar la card seleccionada
     const charFound = listCharacters.find((pCharObj) => pCharObj.char_id === parseInt(charSelected)); // constante que me devuelve el personaje clicado. ParseInt para pasar a nº el string que devuelve currentTarget
@@ -104,14 +120,13 @@ function handleClick(event) {
         favCharacters.splice(charFavFound, 1);
         localStorage.setItem('favChar', JSON.stringify(favCharacters));
        //ESTO ELIMINA EL PERSONAJE
-    } 
+    }
+
     renderFavCharacters();
 };
 
- 
-
+    
 //---------------------------------------- EVENTS ---------------------------------//
-
 
 // función/evento listener (para poder escuchar cada uno de los personajes)
 
@@ -130,8 +145,6 @@ btnSearch.addEventListener('click', (event) => {
     const userSearch = inputTextSearch.value.toLowerCase();
     const searchChar = listCharacters.filter((eachCaracter) => eachCaracter.name.toLowerCase().includes(userSearch));
     renderAllCharacters(searchChar);
-
-    console.log(userSearch);
 });
 
 // evento para pintar otra vez la lista completa de personajes al borrar en el input text de úsqueda
@@ -140,12 +153,6 @@ inputTextSearch.addEventListener('input', () => {
     renderAllCharacters(listCharacters);
 });
 
-// evento para quitar un solo personaje de la lista de favoritos
-
-// btnRemoveFav.addEventListener('click', () => {
-    
-// });
-
 // evento para quitar TODOS los personajes de la lista de favoritos
 
 btnResetFav.addEventListener('click', (event) => {
@@ -153,5 +160,6 @@ btnResetFav.addEventListener('click', (event) => {
     localStorage.removeItem('favChar');
     favCharacters.length = 0;
     renderFavCharacters(favCharacters);
+    renderAllCharacters(listCharacters);
     titleSectionFav.classList.remove('hidden');
 });
