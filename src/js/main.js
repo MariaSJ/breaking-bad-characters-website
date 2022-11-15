@@ -34,6 +34,7 @@ getData();
 const saveFavouritesChar = JSON.parse(localStorage.getItem('favChar'));
 if (saveFavouritesChar !== null){ 
     favCharacters = saveFavouritesChar;
+    showMesageAndBtnFavs();
     renderFavCharacters();
 };
 
@@ -95,9 +96,21 @@ function renderFavCharacters() {
             localStorage.setItem('favChar', JSON.stringify(favCharacters));
             renderFavCharacters(favCharacters);
             renderAllCharacters(listCharacters);
-            titleSectionFav.classList.remove('hidden');
+            showMesageAndBtnFavs();
         }); 
     } 
+};
+
+// función para mostrar mensaje en favoritos y el botón de reset.
+
+function showMesageAndBtnFavs() {
+    if (favCharacters.length === 0) {
+        titleSectionFav.classList.remove('hidden');
+        btnResetFav.classList.add('hidden');
+    } else {
+        titleSectionFav.classList.add('hidden');
+        btnResetFav.classList.remove('hidden');
+    }
 };
 
 
@@ -115,6 +128,7 @@ function handleClick(event) {
         favCharacters.push(charFound);
         localStorage.setItem('favChar', JSON.stringify(favCharacters));
         titleSectionFav.classList.add('hidden');
+        btnResetFav.classList.remove('hidden');
     } else {
         event.currentTarget.classList.remove('selected');
         favCharacters.splice(charFavFound, 1);
@@ -162,4 +176,5 @@ btnResetFav.addEventListener('click', (event) => {
     renderFavCharacters(favCharacters);
     renderAllCharacters(listCharacters);
     titleSectionFav.classList.remove('hidden');
+    btnResetFav.classList.add('hidden');
 });
