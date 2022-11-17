@@ -61,6 +61,12 @@ function renderAllCharacters(pListCharacters) {
         liHtml += `<li class="character js-card-character ${classFav}" id="${character.char_id}">`;
         liHtml += `<img class="character__img" src="${character.img}" alt="">`;
         liHtml += `<h4 class="character__name">${character.name}</h4>`;
+        liHtml += `<ul class="character__ocupation">`
+        const listOcupation = character.occupation;
+        for (const liItem of listOcupation) {
+            liHtml +=`<li>${liItem}</li>`
+        }
+        liHtml +=`</ul>`;
         liHtml += `<p class="character__status">${character.status}</p>`;
         liHtml += `</li>`;
     }
@@ -68,6 +74,8 @@ function renderAllCharacters(pListCharacters) {
     ulCharacters.innerHTML = liHtml;
     listenerEachChar();
 };
+
+
 
 // SOLO LOS FAVORITOS
 
@@ -122,22 +130,24 @@ function handleClick(event) {
     const charFound = listCharacters.find((pCharObj) => pCharObj.char_id === parseInt(charSelected)); // constante que me devuelve el personaje clicado. ParseInt para pasar a nº el string que devuelve currentTarget
 
     // 2. la metemos en favoritos. 1º evitamos que se dupliquen verificando si ya está en fav, buscamos con findIndex
-    const charFavFound = favCharacters.findIndex((favCharObj) => favCharObj.char_id === parseInt(charSelected)); // const si está o no, si es -1 no está y lo añade. Si ya está, no hace nada. 
-    if (charFavFound === -1) {
-        event.currentTarget.classList.add('selected');
-        favCharacters.push(charFound);
-        localStorage.setItem('favChar', JSON.stringify(favCharacters));
-        titleSectionFav.classList.add('hidden');
-        btnResetFav.classList.remove('hidden');
-    } else {
-        event.currentTarget.classList.remove('selected');
-        favCharacters.splice(charFavFound, 1);
-        localStorage.setItem('favChar', JSON.stringify(favCharacters));
-       //ESTO ELIMINA EL PERSONAJE
-    }
-
+    // const charFavFound = favCharacters.findIndex((favCharObj) => favCharObj.char_id === parseInt(charSelected)); // const si está o no, si es -1 no está y lo añade. Si ya está, no hace nada. 
+    // if (charFavFound === -1) {
+    //     event.currentTarget.classList.add('selected');
+    //     favCharacters.push(charFound);
+    //     localStorage.setItem('favChar', JSON.stringify(favCharacters));
+    //     titleSectionFav.classList.add('hidden');
+    //     btnResetFav.classList.remove('hidden');
+    // } else {
+    //     event.currentTarget.classList.remove('selected');
+    //     favCharacters.splice(charFavFound, 1);
+    //     localStorage.setItem('favChar', JSON.stringify(favCharacters));
+    //    //ESTO ELIMINA EL PERSONAJE
+    // }
+    
+    console.log(charFound.name);
     renderFavCharacters();
 };
+
 
     
 //---------------------------------------- EVENTS ---------------------------------//
