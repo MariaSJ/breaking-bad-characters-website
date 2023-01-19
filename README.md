@@ -7,7 +7,7 @@ Not only will you have **access to all the characters**, but you will also be ab
 You can also **search for the character** you want using the search bar.
 
 ## Used technologies:
-This page is mocked and dynamised through **HTML**, **SCSS** and **JavaScript** vanilla.
+This page is layout and dynamised through **HTML**, **SCSS** and **JavaScript** vanilla.
 
 ## Let's go!
 http://beta.adalab.es/modulo-2-evaluacion-final-MariaSJ/
