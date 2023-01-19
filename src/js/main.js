@@ -19,7 +19,7 @@ let favCharacters = []; // variable para guardar los personajes favoritos
 // Fetch 
 
 function getData () {
-    fetch("https://breakingbadapi.com/api/characters")
+    fetch("./assets/data/data.json")
         .then((response) => response.json())
         .then((data) => {
             listCharacters = data;
@@ -58,11 +58,11 @@ function renderAllCharacters(pListCharacters) {
         liHtml += `<li class="character js-card-character ${classFav}" id="${character.char_id}">`;
         liHtml += `<img class="character__img" src="${character.img}" alt="">`;
         liHtml += `<h4 class="character__name">${character.name}</h4>`;
-        liHtml += `<ul class="character__ocupation">`
-        const listOcupation = character.occupation;
-        for (const liItem of listOcupation) {
-            liHtml +=`<li>${liItem}</li>`
-        }
+        // liHtml += `<ul class="character__ocupation">`
+        // const listOcupation = character.occupation;
+        // for (const liItem of listOcupation) {
+        //     liHtml +=`<li>${liItem}</li>`
+        // }
         liHtml +=`</ul>`;
         liHtml += `<p class="character__status">${character.status}</p>`;
         liHtml += `</li>`;
