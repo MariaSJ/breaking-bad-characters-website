@@ -10,4 +10,4 @@ You can also **search for the character** you want using the search bar.
 This page is layout and dynamised through **HTML**, **SCSS** and **JavaScript** vanilla.
 
 ## Let's go!
-http://beta.adalab.es/modulo-2-evaluacion-final-MariaSJ/
+https://mariasj.github.io/breaking-bad-characters-website/
